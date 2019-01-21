@@ -1,4 +1,4 @@
-baseURL = "/Blog"
+baseURL = "/blog"
 title = "Álvaro Beleño"
 author = "Álvaro Beleño"
 paginate = 3
