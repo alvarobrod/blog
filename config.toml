@@ -1,0 +1,9 @@
+baseURL = "/Blog"
+title = "Álvaro Beleño"
+author = "Álvaro Beleño"
+paginate = 3
+theme = "arabica"
+
+[params]
+description = "Administración de sistemas"
+twitter = "alvarobrod"
