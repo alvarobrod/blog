@@ -13,17 +13,6 @@ El fichero _.travis.yml_ será el siguiente:
 Este fichero será el que le diga a Travis el proceso a seguir.
 
 Y el fichero _config.toml_ será el siguiente:
-```
-baseURL = "/blog"
-title = "Álvaro Beleño"
-author = "Álvaro Beleño"
-paginate = 3
-theme = "arabica"
-
-[params]
-description = "Administración de sistemas"
-twitter = "alvarobrod"
-```
 
 Una vez hecho esto, crearemos la carpeta _post_  en el repositorio GitHub, donde guardaremos los ficheros Markdown que Hugo convertirá en nuestros posts.
 
