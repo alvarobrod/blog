@@ -20,14 +20,5 @@
 Primero, creamos el repositorio GitHub y en él crearemos la rama gh-pages, donde estarán los ficheros generados por Hugo, mientras que en la rama master será donde tendremos los ficheros Markdown, así como el fichero .travis.yml y el config.toml que exportaremos a Travis en el proceso de Integración Contínua.</description>
     </item>
     
-    <item>
-      <title>Post de prueba</title>
-      <link>/blog/post/prueba/</link>
-      <pubDate>Mon, 21 Jan 2019 15:28:00 +0000</pubDate>
-      
-      <guid>/blog/post/prueba/</guid>
-      <description>Este es un post de prueba Hola :)</description>
-    </item>
-    
   </channel>
 </rss>
