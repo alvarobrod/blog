@@ -19,5 +19,14 @@
       <description>Este es un post de prueba Hola :)</description>
     </item>
     
+    <item>
+      <title>Post de prueba</title>
+      <link>/blog/post/prueba2/</link>
+      <pubDate>Mon, 21 Jan 2019 15:28:00 +0000</pubDate>
+      
+      <guid>/blog/post/prueba2/</guid>
+      <description>Este es un post de prueba Hola :)</description>
+    </item>
+    
   </channel>
 </rss>
