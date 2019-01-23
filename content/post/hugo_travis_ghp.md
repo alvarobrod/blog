@@ -2,6 +2,7 @@
 title: Integración Continua: Construyendo un blog con Hugo + Travis + GitHub Pages
 date: 2019-01-22T14:00:00Z
 ---
+
 ## Integración Continua: Construyendo un blog con Hugo + Travis + GitHub Pages
 En esta entrada veremos cómo crear un blog como este mismo, usando integración continua con las herramientas Hugo, Travis y GitHub Pages.
 
