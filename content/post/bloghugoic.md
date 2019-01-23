@@ -9,31 +9,6 @@ En esta entrada veremos cómo crear un blog como este mismo, usando integración
 Primero, creamos el ([repositorio GitHub](https://github.com/alvarobrod/blog)) y en él crearemos la rama _gh-pages_, donde estarán los ficheros generados por Hugo, mientras que en la rama _master_ será donde tendremos los ficheros Markdown, así como el fichero _.travis.yml_ y el _config.toml_ que exportaremos a Travis en el proceso de Integración Contínua.
 
 El fichero _.travis.yml_ será el siguiente:
-```
-install:
-  - wget https://github.com/gohugoio/hugo/releases/download/v0.53/hugo_0.53_Linux-64bit.deb && sudo dpkg -i hugo*.deb
-  - git clone https://github.com/alvarobrod/blog.git
-
-script:
-  - rm hugo*.deb
-  - hugo new site sitio
-  - mkdir -p sitio/content/post
-  - mv blog/content/post/* sitio/content/post
-  - mv blog/config.toml sitio/
-  - cd sitio/themes && git clone https://github.com/nirocfz/arabica && cd ..
-  - hugo -t arabica
-  - rm -rf themes/arabica
-
-deploy:
-  provider: pages
-  local-dir: sitio/public
-  skip-cleanup: true
-  github-token: $GH_TOKEN
-  keep-history: true
-  on:
-    branch: master
-```
-  
 
 Este fichero será el que le diga a Travis el proceso a seguir.
 
