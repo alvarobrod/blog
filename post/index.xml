@@ -5,10 +5,20 @@
     <link>/blog/post/</link>
     <description>Recent content in Posts on Álvaro Beleño</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 21 Jan 2019 15:28:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Jan 2019 15:28:00 +0000</lastBuildDate>
     
 	<atom:link href="/blog/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hugo, Travis y GitHub Pages</title>
+      <link>/blog/post/bloghugoic/</link>
+      <pubDate>Wed, 23 Jan 2019 15:28:00 +0000</pubDate>
+      
+      <guid>/blog/post/bloghugoic/</guid>
+      <description>Integración Continua: Construyendo un blog con Hugo + Travis + GitHub Pages En esta entrada veremos cómo crear un blog como este mismo, usando integración continua con las herramientas Hugo, Travis y GitHub Pages.
+Primero, creamos el (repositorio GitHub) y en él crearemos la rama gh-pages, donde estarán los ficheros generados por Hugo, mientras que en la rama master será donde tendremos los ficheros Markdown, así como el fichero .</description>
+    </item>
     
     <item>
       <title>Post de prueba</title>
@@ -16,15 +26,6 @@
       <pubDate>Mon, 21 Jan 2019 15:28:00 +0000</pubDate>
       
       <guid>/blog/post/prueba/</guid>
-      <description>Este es un post de prueba Hola :)</description>
-    </item>
-    
-    <item>
-      <title>Post de prueba</title>
-      <link>/blog/post/prueba2/</link>
-      <pubDate>Mon, 21 Jan 2019 15:28:00 +0000</pubDate>
-      
-      <guid>/blog/post/prueba2/</guid>
       <description>Este es un post de prueba Hola :)</description>
     </item>
     
