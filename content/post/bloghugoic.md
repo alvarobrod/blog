@@ -1,5 +1,5 @@
 ---
-title: Integracion Continua: Construyendo un blog con Hugo, Travis y GitHub Pages
+title: Integración Continua - Construyendo un blog con Hugo, Travis y GitHub Pages
 date: 2019-01-23T15:28:00Z
 ---
 
