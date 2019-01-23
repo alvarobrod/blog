@@ -12,47 +12,47 @@ El fichero _.travis.yml_ será el siguiente:
 ```
 install:
 
-- wget https://github.com/gohugoio/hugo/releases/download/v0.53/hugo_0.53_Linux-64bit.deb && sudo dpkg -i hugo*.deb
+  - wget https://github.com/gohugoio/hugo/releases/download/v0.53/hugo_0.53_Linux-64bit.deb && sudo dpkg -i hugo*.deb
 
-- git clone https://github.com/alvarobele/BlogIC
+  - git clone https://github.com/alvarobele/BlogIC
 
   
 
 script:
 
-- rm hugo*.deb
+  - rm hugo*.deb
 
-- hugo new site sitio
+  - hugo new site sitio
 
-- mkdir -p sitio/content/post
+  - mkdir -p sitio/content/post
 
-- mv BlogIC/content/post/* sitio/content/post/
+  - mv BlogIC/content/post/* sitio/content/post/
 
-- mv BlogIC/config.toml sitio/
+  - mv BlogIC/config.toml sitio/
 
-- cd sitio/themes && git clone https://github.com/nirocfz/arabica && cd ..
+  - cd sitio/themes && git clone https://github.com/nirocfz/arabica && cd ..
 
-- hugo -t arabica
-
-- rm -rf themes/arabica
+  - hugo -t arabica
+  
+  - rm -rf themes/arabica
 
   
 
 deploy:
 
-provider: pages
+  provider: pages
+  
+  local-dir: sitio/public
+  
+  skip-cleanup: true
+  
+  github-token: $GH_TOKEN
+  
+  keep-history: true
 
-local-dir: sitio/public
-
-skip-cleanup: true
-
-github-token: $GH_TOKEN
-
-keep-history: true
-
-on:
-
-branch: master
+  on:
+  
+    branch: master
 ```
   
 
