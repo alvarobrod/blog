@@ -26,12 +26,12 @@ script:
 
 deploy:
   provider: pages
-    local-dir: sitio/public
-    skip-cleanup: true
-    github-token: $GH_TOKEN
-    keep-history: true
-    on:
-        branch: master
+  local-dir: sitio/public
+  skip-cleanup: true
+  github-token: $GH_TOKEN
+  keep-history: true
+  on:
+    branch: master
 ```
   
 
