@@ -101,10 +101,15 @@ InnoDB nos permite establecer el tamaño de bloque y la encriptación:</p>
 <pre><code>CREATE LOGFILE GROUP logfile_group;
 </code></pre>
 
-<p>Los demás parámetros son opcionales, aunque la mayoría no están soportados:
-- <strong>EXTENT_SIZE</strong>: Establece el tamaño en bytes de las extensiones utilizadas por los ficheros que pertenecen al espacio de tablas. Por defecto tiene el valor de 1M, el tamaño mínimo es 32k y el máximo teórico es de 2GB (Depende de varios factores).
-- <strong>INITIAL_SIZE</strong>: Establece el tamaño en bytes del fichero que fue especificado con la cláusula <strong>ADD DATAFILE</strong>. Por defecto tiene el valor de 128M.
-- <strong>AUTOEXTEND_SIZE</strong>, <strong>MAX_SIZE</strong>, <strong>NODEGROUP</strong>, <strong>WAIT</strong>, <strong>COMMENT</strong>: Actualmente son ignorados. Se reservan para un posible uso futuro.</p>
+<p>Los demás parámetros son opcionales, aunque la mayoría no están soportados:</p>
+
+<ul>
+<li><p><strong>EXTENT_SIZE</strong>: Establece el tamaño en bytes de las extensiones utilizadas por los ficheros que pertenecen al espacio de tablas. Por defecto tiene el valor de 1M, el tamaño mínimo es 32k y el máximo teórico es de 2GB (Depende de varios factores).</p></li>
+
+<li><p><strong>INITIAL_SIZE</strong>: Establece el tamaño en bytes del fichero que fue especificado con la cláusula <strong>ADD DATAFILE</strong>. Por defecto tiene el valor de 128M.</p></li>
+
+<li><p><strong>AUTOEXTEND_SIZE</strong>, <strong>MAX_SIZE</strong>, <strong>NODEGROUP</strong>, <strong>WAIT</strong>, <strong>COMMENT</strong>: Actualmente son ignorados. Se reservan para un posible uso futuro.</p></li>
+</ul>
 
 <p>En MySQL no tenemos muchas de las cláusulas de almacenamiento con las que sí contamos en ORACLE entre ellas, las relacionadas con el número de extensiones y el tamaño de las mismas, como por ejemplo NEXT, MINEXTENTS, MAXEXTENTS, PCTINCREASE, etc. Lo que si podemos hacer es establecer el tamaño inicial y máximo de la extensión con INITIAL_SIZE y MAX_SIZE.</p>
 
@@ -126,6 +131,7 @@ Además, podemos ver que la mayoría de opciones provocan errores con el motor d
         <a href="/blog/tags/oracle/">oracle</a>
           <a href="/blog/tags/postgresql/">postgresql</a>
           <a href="/blog/tags/mariadb/">mariadb</a>
+          <a href="/blog/tags/mysql/">mysql</a>
           
       </section>
     </footer>
