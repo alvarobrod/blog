@@ -40,9 +40,7 @@ CREATE LOGFILE GROUP logfile_group;
 Los demás parámetros son opcionales, aunque la mayoría no están soportados:
 
 - **EXTENT_SIZE**: Establece el tamaño en bytes de las extensiones utilizadas por los ficheros que pertenecen al espacio de tablas. Por defecto tiene el valor de 1M, el tamaño mínimo es 32k y el máximo teórico es de 2GB (Depende de varios factores).
-
 - **INITIAL_SIZE**: Establece el tamaño en bytes del fichero que fue especificado con la cláusula **ADD DATAFILE**. Por defecto tiene el valor de 128M.
-
 - **AUTOEXTEND_SIZE**, **MAX_SIZE**, **NODEGROUP**, **WAIT**, **COMMENT**: Actualmente son ignorados. Se reservan para un posible uso futuro.
 
 En MySQL no tenemos muchas de las cláusulas de almacenamiento con las que sí contamos en ORACLE entre ellas, las relacionadas con el número de extensiones y el tamaño de las mismas, como por ejemplo NEXT, MINEXTENTS, MAXEXTENTS, PCTINCREASE, etc. Lo que si podemos hacer es establecer el tamaño inicial y máximo de la extensión con INITIAL_SIZE y MAX_SIZE.
