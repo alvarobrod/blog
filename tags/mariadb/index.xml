@@ -16,8 +16,8 @@
       <pubDate>Sat, 26 Jan 2019 15:28:00 +0000</pubDate>
       
       <guid>/blog/post/diferenciasalmacenamiento/</guid>
-      <description>MariaDB A partir de la versión 4.0 de MySQL se incluye InnoDB, que es un motor de almacenamiento, cuyo predecesor fue MyISAM (actualmente en desuso debido a la gran superioridad de InnoDB). En MariaDB no tenemos disponible la opción de crear tablespaces.
-En MySQL no tenemos muchas de las cláusulas de almacenamiento con las que sí contamos en ORACLE entre ellas, las relacionadas con el número de extensiones y el tamaño de las mismas, como por ejemplo NEXT, MINEXTENTS, MAXEXTENTS, PCTINCREASE, etc.</description>
+      <description>MariaDB, MySQL En MariaDB no tenemos disponible la opción de crear tablespaces. A partir de la versión 4.0 de MySQL se incluye InnoDB, que es un motor de almacenamiento, cuyo predecesor fue MyISAM (actualmente en desuso debido a la gran superioridad de InnoDB), el cual sí incluye esta funcionalidad.
+En MySQL tenemos dos opciones para crear los tablespaces; con el motor de almacenamiento InnoDB y, por otro lado, con NDB.</description>
     </item>
     
   </channel>
