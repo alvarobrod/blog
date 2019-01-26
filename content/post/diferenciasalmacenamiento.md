@@ -51,5 +51,5 @@ Al contrario que en ORACLE, en MySQL no tenemos nada similar al parámetro PCTIN
 En PostgreSQL no existe o no hemos sido capaces de encontrar nada con respecto a la gestión de almacenamiento. 
 
 ## Conclusiones
-En resumen, las cláusulas de almacenamiento de MySQL con respecto a las de ORACLE están **bastante** limitadas, ya que nos encontramos con una funcionalidad muy reducida a la que nos encontraríamos al trabajar con este último sistema gestor de bases de datos.
+En resumen, las cláusulas de almacenamiento de MySQL con respecto a las de ORACLE están bastante limitadas, ya que nos encontramos con una funcionalidad muy reducida a la que nos encontraríamos al trabajar con este último sistema gestor de bases de datos.
 Además, podemos ver que la mayoría de opciones provocan errores con el motor de almacenamiento por defecto de MySQL. Por lo tanto, sería como si no tuviéramos estas opciones. 
