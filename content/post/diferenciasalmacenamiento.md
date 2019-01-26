@@ -1,7 +1,7 @@
 ---
 title: Diferencias de PostgreSQL y MariaDB respecto a ORACLE en cuanto a la gestión del almacenamiento 
 date: 2019-01-26T15:28:00Z
-tags: ["oracle", "postgresql", "mariadb"]
+tags: ["oracle", "postgresql", "mariadb", "mysql"]
 ---
 
 # MariaDB, MySQL
