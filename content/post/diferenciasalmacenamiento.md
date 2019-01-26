@@ -8,13 +8,9 @@ tags: ["oracle", "postgresql", "mariadb"]
 A partir de la versión 4.0 de MySQL se incluye InnoDB, que es un motor de almacenamiento, cuyo predecesor fue MyISAM (actualmente en desuso debido a la gran superioridad de InnoDB).
 En MariaDB no tenemos disponible la opción de crear _tablespaces_.
 
-En MySQL no tenemos muchas de las cláusulas de almacenamiento con las que sí contamos en ORACLE:
+En MySQL no tenemos muchas de las cláusulas de almacenamiento con las que sí contamos en ORACLE entre ellas, las relacionadas con el número de extensiones y el tamaño de las mismas, como por ejemplo NEXT, MINEXTENTS, MAXEXTENTS, PCTINCREASE, etc. Lo que si podemos hacer es establecer el tamaño inicial y máximo de la extensión con INITIAL_SIZE y MAX_SIZE.
 
-- El parámetro NEXT no está en MySQL.
-- El parámetro MINEXTENTS no está en MySQL.
-- Tampoco está MAXEXTENTS, sólo podremos definir el tamaño máximo de la extensión.
-- No podremos establecer un _tablespace_ de "sólo lectura".
-- No tendremos la opción de hacer que un _tablespace_ se vaya incrementando de manera porcentual. 
+Al contrario que en ORACLE, en MariaDB no tenemos nada similar al parámetro PCTINCREASE anteriormente mencionado, por lo que esto nos resta bastante flexibilidad a la hora de gestionar el almacenamiento de nuestra base de datos.
 
 En resumen, las cláusulas de almacenamiento de MySQL con respecto a las ORACLE están bastante limitadas, ya que nos encontramos con una funcionalidad muy reducida a la que nos encontraríamos al trabajar con este último sistema gestor de bases de datos.
 
