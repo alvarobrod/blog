@@ -38,6 +38,33 @@
     </item>
     
     <item>
+      <title>Mariadb</title>
+      <link>/blog/tags/mariadb/</link>
+      <pubDate>Sat, 26 Jan 2019 15:28:00 +0000</pubDate>
+      
+      <guid>/blog/tags/mariadb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Oracle</title>
+      <link>/blog/tags/oracle/</link>
+      <pubDate>Sat, 26 Jan 2019 15:28:00 +0000</pubDate>
+      
+      <guid>/blog/tags/oracle/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Postgresql</title>
+      <link>/blog/tags/postgresql/</link>
+      <pubDate>Sat, 26 Jan 2019 15:28:00 +0000</pubDate>
+      
+      <guid>/blog/tags/postgresql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Travis</title>
       <link>/blog/tags/travis/</link>
       <pubDate>Wed, 23 Jan 2019 15:28:00 +0000</pubDate>

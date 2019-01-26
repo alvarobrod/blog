@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Diferencias de PostgreSQL y MariaDB respecto a ORACLE en cuanto a la gestión del almacenamiento - Álvaro Beleño
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/blog/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/blog/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/blog/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/blog/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/blog/">
+				
+           Álvaro Beleño
+				
+			</a>
+		</h1>
+		<h2 class="blog-description">Administración de sistemas</h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Diferencias de PostgreSQL y MariaDB respecto a ORACLE en cuanto a la gestión del almacenamiento</h2>
+      <section class="post-meta">
+        <time class="post-date">January 26, 2019</time>
+      </section>
+    </header>
+    <section class="post-content">
+      
+
+<h1 id="mariadb">MariaDB</h1>
+
+<p>A partir de la versión 4.0 de MySQL se incluye InnoDB, que es un motor de almacenamiento, cuyo predecesor fue MyISAM (actualmente en desuso debido a la gran superioridad de InnoDB).
+En MariaDB no tenemos disponible la opción de crear <em>tablespaces</em>.</p>
+
+<p>En MySQL no tenemos muchas de las cláusulas de almacenamiento con las que sí contamos en ORACLE:</p>
+
+<ul>
+<li>El parámetro NEXT no está en MySQL.</li>
+<li>El parámetro MINEXTENTS no está en MySQL.</li>
+<li>Tampoco está MAXEXTENTS, sólo podremos definir el tamaño máximo de la extensión.</li>
+<li>No podremos establecer un <em>tablespace</em> de &ldquo;sólo lectura&rdquo;.</li>
+<li>No tendremos la opción de hacer que un <em>tablespace</em> se vaya incrementando de manera porcentual.</li>
+</ul>
+
+<p>En resumen, las cláusulas de almacenamiento de MySQL con respecto a las ORACLE están bastante limitadas, ya que nos encontramos con una funcionalidad muy reducida a la que nos encontraríamos al trabajar con este último sistema gestor de bases de datos.</p>
+
+<h1 id="postgresql">PostgreSQL</h1>
+
+<p>En PostgreSQL no existe o no hemos sido capaces de encontrar nada con respecto a la gestión de almacenamiento.</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="/blog/tags/oracle/">oracle</a>
+          <a href="/blog/tags/postgresql/">postgresql</a>
+          <a href="/blog/tags/mariadb/">mariadb</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  <section class="twitter"><a class="icon-twitter" href="https://twitter.com/alvarobrod"> alvarobrod</a></section>
+  
+  <section class="copyright">&copy; 2019 Álvaro Beleño</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>
