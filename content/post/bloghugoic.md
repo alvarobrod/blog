@@ -5,6 +5,7 @@ tags: ["integracion continua", "hugo", "travis", "github pages"]
 ---
 
 En esta entrada veremos cómo crear un blog como este mismo, usando integración continua con las herramientas Hugo, Travis y GitHub Pages.
+Cuando ya tengamos todo configurado, lo único que tendremos que hacer es escribir nuestros posts en _Markdown_, hacer un _push_ a nuestro repositorio en GitHub y las tres herramientas anteriormente mencionadas se encargarán del resto :)
 
 Primero, creamos el [repositorio GitHub](https://github.com/alvarobrod/blog) y en él crearemos la rama _gh-pages_, donde estarán los ficheros generados por Hugo, mientras que en la rama _master_ será donde tendremos los ficheros Markdown, así como el fichero _.travis.yml_ y el _config.toml_ que exportaremos a Travis en el proceso de Integración Continua.
 
