@@ -152,7 +152,6 @@ Unallocated:
 ```
 
 # RAID
-
 ## RAID 1
 Podemos ver que disponemos de un RAID con el siguiente comando:
 ```
