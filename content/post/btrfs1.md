@@ -4,7 +4,7 @@ date: 2019-03-15T108:00:00Z
 tags: ["brtfs", "raid", "mdadm"]
 ---
 
-Btrfs
+Btrfs es un sistema de ficheros _copy on write_ (CoW) para Linux que implementa funcionalidades avanzadas concentrándose también en tolerancia a fallos, reparación y su fácil administración.
 
 # Escenario
 Para estas pruebas vamos a disponer de una máquina Debian con tres discos asociados a la misma. Estos discos tienen diferentes tamaños, siendo uno de 1 GB, otro de 2 GB y el último de 3 GB.
