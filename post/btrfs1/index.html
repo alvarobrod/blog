@@ -296,9 +296,11 @@ GlobalReserve, single: total=16.00MiB, used=0.00B
 <h2 id="comparación-de-raid-btrfs-con-raid-mdadm">Comparación de RAID Btrfs con RAID mdadm</h2>
 
 <p>Poniendo un ejemplo, si hacemos un RAID 1 <em>mdadm</em>, tendremos que tener dos discos de tamaño idéntico, escribiéndose en uno de ellos una copia exacta del otro.
-En un RAID 1 <em>Btrfs</em>, por otro lado, podremos tener varios discos e incluso, de distinto tamaño, y <em>Btrfs</em> se encargará de distribuir los bloques de datos de manera uniforme entre todos los discos. Si más adelante quisiéramos añadir un nuevo disco al RAID, podríamos hacerlo y, de nuevo, <em>Btrfs</em> se encargaría de “alinear” los datos del nuevo disco con los datos del RAID ya existente.
-<em>Nota: Hay que decir que, obviamente, la implementación de RAID de Btrfs no es igual a la de mdadm.</em>
-Como podemos ver, entonces, con la implementación de RAID de <em>Btrfs</em> tendremos mayor flexibilidad, con mayores posibilidades de expansión.
+En un RAID 1 <em>Btrfs</em>, por otro lado, podremos tener varios discos e incluso, de distinto tamaño, y <em>Btrfs</em> se encargará de distribuir los bloques de datos de manera uniforme entre todos los discos. Si más adelante quisiéramos añadir un nuevo disco al RAID, podríamos hacerlo y, de nuevo, <em>Btrfs</em> se encargaría de “alinear” los datos del nuevo disco con los datos del RAID ya existente.</p>
+
+<p><em>Nota: Hay que decir que, obviamente, la implementación de RAID de Btrfs no es igual a la de mdadm.</em></p>
+
+<p>Como podemos ver, entonces, con la implementación de RAID de <em>Btrfs</em> tendremos mayor flexibilidad, con mayores posibilidades de expansión.
 También debemos apuntar que, al día de escritura de esta entrada, los RAID 5 y 6 todavía no son estables en la implementación <em>Btrfs</em>.</p>
 
 <h2 id="reparación-de-raid">Reparación de RAID</h2>
