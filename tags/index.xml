@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>Brtfs</title>
+      <link>/blog/tags/brtfs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/tags/brtfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Github Pages</title>
       <link>/blog/tags/github-pages/</link>
       <pubDate>Wed, 23 Jan 2019 15:28:00 +0000</pubDate>
@@ -47,6 +56,15 @@
     </item>
     
     <item>
+      <title>Mdadm</title>
+      <link>/blog/tags/mdadm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/tags/mdadm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Mysql</title>
       <link>/blog/tags/mysql/</link>
       <pubDate>Sat, 26 Jan 2019 15:28:00 +0000</pubDate>
@@ -70,6 +88,15 @@
       <pubDate>Sat, 26 Jan 2019 15:28:00 +0000</pubDate>
       
       <guid>/blog/tags/postgresql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Raid</title>
+      <link>/blog/tags/raid/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/tags/raid/</guid>
       <description></description>
     </item>
     

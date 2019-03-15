@@ -30,5 +30,17 @@ En MySQL tenemos dos opciones para crear los tablespaces; con el motor de almace
 Primero, creamos el repositorio GitHub y en él crearemos la rama gh-pages, donde estarán los ficheros generados por Hugo, mientras que en la rama master será donde tendremos los ficheros Markdown, así como el fichero .</description>
     </item>
     
+    <item>
+      <title>Btrfs, parte 1</title>
+      <link>/blog/post/btrfs1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/post/btrfs1/</guid>
+      <description>Btrfs
+Escenario Para estas pruebas vamos a disponer de una máquina Debian con tres discos asociados a la misma. Estos discos tienen diferentes tamaños, siendo uno de 1 GB, otro de 2 GB y el último de 3 GB.
+Gestión de los discos adicionales Para formatear un disco con el sistema de ficheros Btrfs, ejecutaremos el siguiente comando:
+mkfs.btrfs /dev/sdc  Como podemos ver, he formateado el disco sin hacer particiones previamente.</description>
+    </item>
+    
   </channel>
 </rss>

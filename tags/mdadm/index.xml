@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mdadm on Álvaro Beleño</title>
+    <link>/blog/tags/mdadm/</link>
+    <description>Recent content in Mdadm on Álvaro Beleño</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	<atom:link href="/blog/tags/mdadm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Btrfs, parte 1</title>
+      <link>/blog/post/btrfs1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/post/btrfs1/</guid>
+      <description>Btrfs
+Escenario Para estas pruebas vamos a disponer de una máquina Debian con tres discos asociados a la misma. Estos discos tienen diferentes tamaños, siendo uno de 1 GB, otro de 2 GB y el último de 3 GB.
+Gestión de los discos adicionales Para formatear un disco con el sistema de ficheros Btrfs, ejecutaremos el siguiente comando:
+mkfs.btrfs /dev/sdc  Como podemos ver, he formateado el disco sin hacer particiones previamente.</description>
+    </item>
+    
+  </channel>
+</rss>
