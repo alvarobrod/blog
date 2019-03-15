@@ -211,7 +211,9 @@ GlobalReserve, single: total=16.00MiB, used=0.00B
 ## Comparación de RAID Btrfs con RAID mdadm
 Poniendo un ejemplo, si hacemos un RAID 1 _mdadm_, tendremos que tener dos discos de tamaño idéntico, escribiéndose en uno de ellos una copia exacta del otro.
 En un RAID 1 _Btrfs_, por otro lado, podremos tener varios discos e incluso, de distinto tamaño, y _Btrfs_ se encargará de distribuir los bloques de datos de manera uniforme entre todos los discos. Si más adelante quisiéramos añadir un nuevo disco al RAID, podríamos hacerlo y, de nuevo, _Btrfs_ se encargaría de “alinear” los datos del nuevo disco con los datos del RAID ya existente.
+
 _Nota: Hay que decir que, obviamente, la implementación de RAID de Btrfs no es igual a la de mdadm._
+
 Como podemos ver, entonces, con la implementación de RAID de _Btrfs_ tendremos mayor flexibilidad, con mayores posibilidades de expansión.
 También debemos apuntar que, al día de escritura de esta entrada, los RAID 5 y 6 todavía no son estables en la implementación _Btrfs_.
 ## Reparación de RAID
