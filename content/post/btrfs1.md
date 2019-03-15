@@ -1,6 +1,6 @@
 ---
 title: Btrfs, parte 1 
-date: 2019-03-15T108:00:00Z
+date: 2019-03-15T08:00:00Z
 tags: ["brtfs", "raid", "mdadm"]
 ---
 
