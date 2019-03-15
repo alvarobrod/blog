@@ -186,14 +186,16 @@ Label: none  uuid: 28073a9a-7d0a-41f3-908a-7c8942852a91
     devid    1 size 1.00GiB used 230.38MiB path /dev/sdb
 </code></pre>
 
-<p><em>Nota: Aquí también podríamos ejecutar el comando btrfs fi usage /mnt y nos mostraría información similar, aunque más detallada, como hemos visto anteriormente.</em>
-Si contamos con el pool de los dos discos, podemos convertirlo directamente a un RAID 1. Esto lo haremos con el siguiente comando:</p>
+<p><em>Nota: Aquí también podríamos ejecutar el comando btrfs fi usage /mnt y nos mostraría información similar, aunque más detallada, como hemos visto anteriormente.</em></p>
+
+<p>Si contamos con el pool de los dos discos, podemos convertirlo directamente a un RAID 1. Esto lo haremos con el siguiente comando:</p>
 
 <pre><code>btrfs balance start -v -mconvert=raid1 -dconvert=raid1 /mnt
 </code></pre>
 
-<p>Al ejecutar este comando, habremos convertido nuestro pool de almacenamiento en un RAID 1, reduciendo a la mitad el tamaño total pero teniendo una redundancia total de los datos. Con la opción <em>-mconvert</em> indicaríamos el tipo de RAID que utilizamos para los metadatos, y con <em>-dconvert</em>, indicamos el tipo de RAID para los datos.
-<em>Nota: Los metadatos en Btrfs incluyen por ejemplo datos sobre las estructuras internas del sistema de ficheros, estructuras de directorios, nombres de ficheros, permisos de estos, sumas de comprobación (checksums), etc.</em></p>
+<p>Al ejecutar este comando, habremos convertido nuestro pool de almacenamiento en un RAID 1, reduciendo a la mitad el tamaño total pero teniendo una redundancia total de los datos. Con la opción <em>-mconvert</em> indicaríamos el tipo de RAID que utilizamos para los metadatos, y con <em>-dconvert</em>, indicamos el tipo de RAID para los datos.</p>
+
+<p><em>Nota: Los metadatos en Btrfs incluyen por ejemplo datos sobre las estructuras internas del sistema de ficheros, estructuras de directorios, nombres de ficheros, permisos de estos, sumas de comprobación (checksums), etc.</em></p>
 
 <pre><code>root@arca:~# btrfs fi usage /mnt
 Overall:
