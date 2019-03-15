@@ -115,11 +115,13 @@ Label: none  uuid: 28073a9a-7d0a-41f3-908a-7c8942852a91
     devid    1 size 1.00GiB used 230.38MiB path /dev/sdb
 ```
 _Nota: Aquí también podríamos ejecutar el comando btrfs fi usage /mnt y nos mostraría información similar, aunque más detallada, como hemos visto anteriormente._
+
 Si contamos con el pool de los dos discos, podemos convertirlo directamente a un RAID 1. Esto lo haremos con el siguiente comando:
 ```
 btrfs balance start -v -mconvert=raid1 -dconvert=raid1 /mnt
 ```
 Al ejecutar este comando, habremos convertido nuestro pool de almacenamiento en un RAID 1, reduciendo a la mitad el tamaño total pero teniendo una redundancia total de los datos. Con la opción _-mconvert_ indicaríamos el tipo de RAID que utilizamos para los metadatos, y con _-dconvert_, indicamos el tipo de RAID para los datos.
+
 _Nota: Los metadatos en Btrfs incluyen por ejemplo datos sobre las estructuras internas del sistema de ficheros, estructuras de directorios, nombres de ficheros, permisos de estos, sumas de comprobación (checksums), etc._
 ```
 root@arca:~# btrfs fi usage /mnt
