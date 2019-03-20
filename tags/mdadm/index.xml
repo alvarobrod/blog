@@ -5,10 +5,21 @@
     <link>/blog/tags/mdadm/</link>
     <description>Recent content in Mdadm on Álvaro Beleño</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 15 Mar 2019 08:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 19 Mar 2019 08:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/blog/tags/mdadm/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Btrfs, parte 2</title>
+      <link>/blog/post/btrfs2/</link>
+      <pubDate>Tue, 19 Mar 2019 08:00:00 +0000</pubDate>
+      
+      <guid>/blog/post/btrfs2/</guid>
+      <description>Esta es la segunda parte de mis posts sobre Btrfs, para leer la primera, ve aquí
+Otras funcionalidades Compresión Cuando montamos el disco de manera normal, no usará ningún tipo de compresión por defecto. Para poder empezar a utilizar la compresión, tendremos que indicar qué método de compresión es el que deseamos utilizar. Esto lo haremos de la siguiente manera:
+mount -o compress=&amp;lt;método de compresión&amp;gt; /dev/sdb /mnt  Contamos con varios métodos de compresión en Btrfs: * ZLIB: Gran ratio de compresión, pero lento.</description>
+    </item>
     
     <item>
       <title>Btrfs, parte 1</title>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Btrfs, parte 2 - Álvaro Beleño
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/blog/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/blog/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/blog/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/blog/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/blog/">
+				
+           Álvaro Beleño
+				
+			</a>
+		</h1>
+		<h2 class="blog-description">Administración de sistemas</h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Btrfs, parte 2</h2>
+      <section class="post-meta">
+        <time class="post-date">March 19, 2019</time>
+      </section>
+    </header>
+    <section class="post-content">
+      
+
+<p>Esta es la segunda parte de mis posts sobre Btrfs, para leer la primera, ve <a href="https://alvarobrod.github.io/blog/post/btrfs1/">aquí</a></p>
+
+<h1 id="otras-funcionalidades">Otras funcionalidades</h1>
+
+<h2 id="compresión">Compresión</h2>
+
+<p>Cuando montamos el disco de manera normal, no usará ningún tipo de compresión por defecto. Para poder empezar a utilizar la compresión, tendremos que indicar qué método de compresión es el que deseamos utilizar. Esto lo haremos de la siguiente manera:</p>
+
+<pre><code>mount -o compress=&lt;método de compresión&gt; /dev/sdb /mnt
+</code></pre>
+
+<p>Contamos con varios métodos de compresión en Btrfs:
+* ZLIB: Gran ratio de compresión, pero lento.
+* LZO: Menor ratio de compresión, pero mayor velocidad a la hora de comprimir/descomprimir (Diseñado para ser rápido).
+* ZSTD: Cuenta con un ratio de compresión equiparable al de ZLIB, pero con mayores velocidades de compresión/descompresión.</p>
+
+<p>Vamos a hacer pruebas, por ejemplo, con ZLIB:
+Primero, montamos nuestro disco (Recordamos que montando un disco, nos montará directamente los demás al estar en un pool de almacenamiento):</p>
+
+<pre><code>mount -o compress=zlib /dev/sdb /mnt
+</code></pre>
+
+<h3 id="zlib">ZLIB</h3>
+
+<p>He usado la utilidad dd para crear un fichero de gran tamaño de forma fácil:</p>
+
+<pre><code>dd if=/dev/zero of=/mnt/prueba bs=2048
+
+root@arca:~# dd if=/dev/zero of=/mnt/prueba bs=2048
+dd: error writing '/mnt/prueba': No space left on device
+88499663+0 records in
+88499662+0 records ou
+181247307776 bytes (181 GB, 169 GiB) copied, 513.136 s, 353 MB/s
+
+root@arca:~# ls -hal /mnt/prueba 
+-rw-r--r-- 1 root root 169G Feb 11 18:18 /mnt/prueba
+
+root@arca:~# btrfs fi usage /mnt
+Overall:
+    [...]
+    Used: 5.71GiB
+    [...]
+</code></pre>
+
+<p>Como podemos comprobar, este método tiene un gran ratio de compresión, pudiendo alojar un fichero de 169 GiB en 5,71 GiB.</p>
+
+<h3 id="lzo">LZO</h3>
+
+<p>Activaremos este método de compresión al montar el disco de la siguiente manera:</p>
+
+<pre><code>mount -o compress=lzo /dev/sdb /mnt
+</code></pre>
+
+<p>A continuación, volvemos a ejecutar el comando dd que ejecutamos anteriormente y podremos ver que este método de compresión tiene un ratio menor que ZLIB, aunque también comprime con un ratio bastante bueno:</p>
+
+<pre><code>root@arca:~# dd if=/dev/zero of=/mnt/prueba bs=2048
+dd: error writing '/mnt/prueba': No space left on device
+80101981+0 records in
+80101980+0 records out
+164048855040 bytes (164 GB, 153 GiB) copied, 267.435 s, 613 MB/s
+
+root@arca:~# ls -hal /mnt/prueba 
+-rw-r--r-- 1 root root 153G Feb 11 22:07 /mnt/prueba
+
+root@arca:~# btrfs fi usage /mnt
+Overall:
+    [...]
+    Used: 5.18GiB
+    [...]
+</code></pre>
+
+<h3 id="zstd">ZSTD</h3>
+
+<p>Para poder utilizar este método de compresión, tendremos que tenerlo activado en nuestro kernel. Para ver si disponemos del mismo, miraremos si las opciones CONFIG_ZSTD_COMPRESS y CONFIG_ZSTD_DECOMPRESS están habilitadas.
+Se utilizaría de la misma manera que hemos utilizado los métodos anteriores.</p>
+
+<h2 id="cow-copy-on-write">COW (Copy-on-write)</h2>
+
+<p><em>Btrfs</em> es un sistema de ficheros <em>Copy-on-write</em> (COW, para abreviar). Esto básicamente quiere decir que, cuando el sistema accede a un fichero y lo modifica, en vez de sobreescribirlo, <em>Btrfs</em> hace una copia del fichero, lo modifica y lo guarda en una localización diferente en el disco. Después actualiza los metadatos para que reflejen esta nueva localización (En esta actualización de los metadatos, estos son tratados de la misma manera que se han tratado los datos anteriormente).
+Para probar el COW, he creado un fichero de 200 MiB con el siguiente comando:</p>
+
+<pre><code>dd if=/dev/zero of=/mnt/prueba bs=2048 count=100k
+</code></pre>
+
+<p>Y he creado una copia en el mismo directorio con el comando que sigue:</p>
+
+<pre><code>cp --reflink=always /mnt/prueba /mnt/prueba2
+</code></pre>
+
+<p>La opción <em>&ndash;reflink=always</em> nos permite controlar las copias COW. Si especificamos always, se ejecuta una copia donde sólo se copian los bloques de datos cuando estos son modificados. Si esto no es posible, la copia fallará. En cambio, especificando auto, si esto falla, la copia se hará de forma estándar.
+Tras hacer la copia, veremos que no ocupa espacio en nuestro disco, ya que no se ha modificado ningún bloque del fichero:</p>
+
+<pre><code>root@arca:~# dd if=/dev/zero of=/mnt/prueba bs=2048 count=100k
+102400+0 records in
+102400+0 records out
+209715200 bytes (210 MB, 200 MiB) copied, 0.277714 s, 755 MB/s
+root@arca:~# btrfs fi usage /mnt
+Overall:
+    [...]
+    Free (estimated):          1.33GiB  (min: 687.81MiB)
+    [...]
+root@arca:~# cp --reflink=always /mnt/prueba /mnt/prueba2
+root@arca:~# btrfs fi usage /mnt
+Overall:
+    [...]
+    Free (estimated): 1.33GiB (min: 687.88MiB)
+    [...]
+</code></pre>
+
+<h2 id="deduplicación">Deduplicación</h2>
+
+<p>Como hemos visto, <em>Btrfs</em> es un sistema de ficheros <em>copy-on-write</em>, que significa que una nueva copia de un fichero se crearía cuando se modifica el original.
+La deduplicación va un paso más allá, identificando cuándo los datos se han escrito dos veces y combinándolos en una misma extensión del disco.
+Hay varias herramientas, llamadas “_deduplicators_”, como <em>duperemove</em>, <em>bedup</em>, o <em>bees</em>.</p>
+
+<h2 id="subvolúmenes">Subvolúmenes</h2>
+
+<p>Los subvolúmenes en <em>Btrfs</em> son partes del sistema de ficheros con su jerarquía de directorios y ficheros propia e independiente. Un subvolumen parece un directorio normal y corriente, pero tiene funcionalidades añadidas.
+Un sistema de ficheros recién creado también se considera un subvolumen, llamado <em>top-level</em> (Alto nivel, en español). Este subvolumen no puede ser borrado o reemplazado por otro subvolumen.
+Para crear un subvolumen, ejecutaremos el siguiente comando:</p>
+
+<pre><code>btrfs subvolume create subvolumen
+</code></pre>
+
+<p><em>Nota: El comando anterior tendremos que ejecutarlo estando en el directorio del sistema de ficheros Btrfs.</em></p>
+
+<p>Como hemos dicho antes y podemos comprobar ahora, el subvolumen es una especie de directorio:</p>
+
+<pre><code>root@arca:/mnt# ls -hal
+total 20K
+drwxr-xr-x  1 root root   20 Feb 13 11:29 .
+drwxr-xr-x 23 root root 4.0K Feb 13 11:22 ..
+drwxr-xr-x  1 root root    0 Feb 13 11:33 subvolumen
+root@arca:/mnt# touch subvolumen/prueba
+root@arca:/mnt# tree
+.
+└── subvolumen
+    └── prueba
+
+1 directory, 1 file
+</code></pre>
+
+<p>Aunque el subvolumen se comporte de manera casi idéntica a un directorio, tiene diferencias con este último. Por ejemplo, podríamos montar el subvolumen en otro punto de montaje diferente.
+Primero obtendremos el ID del subvolumen con el siguiente comando:</p>
+
+<pre><code>btrfs subvolume list /mnt
+
+root@arca:/mnt# btrfs subvolume list /mnt
+ID 256 gen 10 top level 5 path subvolumen
+</code></pre>
+
+<p>Y ahora, utilizando el ID (256 en este caso), podremos montar dicho subvolumen aparte:</p>
+
+<pre><code>mount -o subvolid=256 /dev/sdb /punto_montaje
+
+root@arca:~# tree /punto_montaje/
+/punto_montaje/
+└── prueba
+
+0 directories, 1 file
+</code></pre>
+
+<p>Con esto, conseguimos poder tratar a cada subvolumen como un sistema de ficheros independiente.
+Podemos borrar subvolúmenes con el siguiente comando, aunque este subvolumen debe estar vacío antes de proceder al borrado:</p>
+
+<pre><code>btrfs subvolume delete &lt;ruta del subvolumen&gt;
+</code></pre>
+
+<h2 id="snapshots">Snapshots</h2>
+
+<p>Podríamos definir los <em>snapshots</em> como subvolúmenes que son copias <em>copy-on-write</em> de otro subvolumen. Esto nos permitiría hacer una especie de copia de seguridad del subvolumen de una manera que no consume apenas recursos adicionales.
+Para hacer pruebas, he creado dos subvolúmenes, <em>sub1</em> y <em>sub2</em>, el primero conteniendo dos ficheros de 200 MiB cada uno, <em>prueba1</em> y <em>prueba2</em> y un directorio, prueba_dir:</p>
+
+<pre><code>.
+├── sub1
+│   ├── prueba1
+│   ├── prueba2
+│   └── prueba_dir
+└── sub2
+
+root@arca:/mnt# btrfs fi usage /mnt
+Overall:
+    [...]
+    Used:            401.45MiB
+    [...]
+</code></pre>
+
+<p>Ahora, queremos crear un <em>snapshot</em> del subvolumen sub1. Para ello, ejecutaremos el siguiente comando:</p>
+
+<pre><code>btrfs subvolume snapshot /mnt/sub1 /mnt/snapshot
+</code></pre>
+
+<p>Y tendremos ya un <em>snapshot</em> del subvolumen sub1.</p>
+
+<pre><code>.
+├── snapshot
+│   ├── prueba1
+│   ├── prueba2
+│   └── prueba_dir
+├── sub1
+│   ├── prueba1
+│   ├── prueba2
+│   └── prueba_dir
+└── sub2
+</code></pre>
+
+<p>Como podremos también comprobar, este snapshot no ocupa espacio en disco, ya que, al ser una copia <em>copy-on-write</em>, sólo se efectuará la copia cuando los ficheros sean modificados.</p>
+
+<pre><code>root@arca:/mnt# btrfs fi usage /mnt
+Overall:
+    [...]
+    Used:            401.63MiB
+    [...]
+</code></pre>
+
+<h2 id="balanceo-de-los-datos">Balanceo de los datos</h2>
+
+<p>Al copiar/crear ficheros, a veces ocupan espacio de sólo disco. Podemos hacer que se reparta dicho peso entre los discos que tengamos, ejecutando el siguiente comando:</p>
+
+<pre><code>btrfs fi balance --full-balance /mnt
+</code></pre>
+
+<p>Y hasta aquí los dos posts sobre <em>Btrfs</em>, gracias por leer :)</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="/blog/tags/brtfs/">brtfs</a>
+          <a href="/blog/tags/raid/">raid</a>
+          <a href="/blog/tags/mdadm/">mdadm</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  <section class="twitter"><a class="icon-twitter" href="https://twitter.com/alvarobrod"> alvarobrod</a></section>
+  
+  <section class="copyright">&copy; 2019 Álvaro Beleño</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>
