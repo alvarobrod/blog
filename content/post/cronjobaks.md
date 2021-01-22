@@ -2,7 +2,6 @@
 title: Crear un CronJob para reiniciar deployment en AKS 
 date: 2021-01-22T15:28:00Z
 tags: ["aks", "kubernetes", "k8s", "cronjob"]
-draft: true
 ---
 
 Tras estar bastante tiempo sin subir un post, he decidido subir cosas interesantes que haga en mi trabajo que considere que pueden ser útiles o que, simplemente, quiera tener en algún sitio y así no perderlo de vista :)
