@@ -5,10 +5,19 @@
     <link>/blog/tags/</link>
     <description>Recent content in Tags on Álvaro Beleño</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 19 Mar 2019 08:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 22 Jan 2021 15:28:00 +0000</lastBuildDate>
     
 	<atom:link href="/blog/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Aks</title>
+      <link>/blog/tags/aks/</link>
+      <pubDate>Fri, 22 Jan 2021 15:28:00 +0000</pubDate>
+      
+      <guid>/blog/tags/aks/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Brtfs</title>
@@ -16,6 +25,15 @@
       <pubDate>Tue, 19 Mar 2019 08:00:00 +0000</pubDate>
       
       <guid>/blog/tags/brtfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cronjob</title>
+      <link>/blog/tags/cronjob/</link>
+      <pubDate>Fri, 22 Jan 2021 15:28:00 +0000</pubDate>
+      
+      <guid>/blog/tags/cronjob/</guid>
       <description></description>
     </item>
     
@@ -43,6 +61,24 @@
       <pubDate>Wed, 23 Jan 2019 15:28:00 +0000</pubDate>
       
       <guid>/blog/tags/integracion-continua/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>K8s</title>
+      <link>/blog/tags/k8s/</link>
+      <pubDate>Fri, 22 Jan 2021 15:28:00 +0000</pubDate>
+      
+      <guid>/blog/tags/k8s/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>/blog/tags/kubernetes/</link>
+      <pubDate>Fri, 22 Jan 2021 15:28:00 +0000</pubDate>
+      
+      <guid>/blog/tags/kubernetes/</guid>
       <description></description>
     </item>
     

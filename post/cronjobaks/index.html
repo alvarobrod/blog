@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+      Crear un CronJob para reiniciar deployment en AKS - Álvaro Beleño
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/blog/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/blog/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/blog/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/blog/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="post-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/blog/">
+				
+           Álvaro Beleño
+				
+			</a>
+		</h1>
+		<h2 class="blog-description">Administración de sistemas</h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post">
+    <header class="post-header">
+      
+      <h2 class="post-title">Crear un CronJob para reiniciar deployment en AKS</h2>
+      <section class="post-meta">
+        <time class="post-date">January 22, 2021</time>
+      </section>
+    </header>
+    <section class="post-content">
+      
+
+<p>Tras estar bastante tiempo sin subir un post, he decidido subir cosas interesantes que haga en mi trabajo que considere que pueden ser útiles o que, simplemente, quiera tener en algún sitio y así no perderlo de vista :)</p>
+
+<p>Hoy os hablaré de cómo crear un recurso <em>cronJob</em> en AKS para manejar el reinicio de uno (O varios) <em>deployments</em>. Realmente esto se podría hacer en cualquier instancia de Kubernetes, con lo cual no aplica sólo a la plataforma de Azure. Aunque es en servicios gestionados como este donde esta solución llega a ser más interesante.</p>
+
+<p>Lo que haremos será crear un recurso <em>cronJob</em> que reinicie el <em>deployment</em> indicado a la hora indicada. Este <em>cronJob</em> lanzará un <em>pod</em> que ejecutará <em>kubectl</em> para llevar a cabo el reinicio.</p>
+
+<h1 id="creación-del-serviceaccount">Creación del serviceAccount</h1>
+
+<p>Para esto, lo primero que haremos será crear un recurso <em>serviceAccount</em>. Este será usado por el <em>pod</em> para autenticarse y poder hacer uso de la API interna del <em>cluster</em> de k8s. Ejecutaremos el siguiente comando para su creación:</p>
+
+<pre><code>kubectl create serviceaccount deployment-restart-sa
+</code></pre>
+
+<h1 id="creación-del-role">Creación del role</h1>
+
+<p>Una vez tengamos creado este <em>serviceAccount</em>, necesitaremos un recurso <em>role</em> que definirá los permisos que tendrá dicho <em>serviceAccount</em>.
+Para crear este <em>role</em>, generamos un fichero YAML que contenga lo siguiente:</p>
+
+<pre><code>---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: deployment-restart-role
+  namespace: &lt;nombre-del-namespace&gt;
+rules:
+  - apiGroups: [&quot;apps&quot;, &quot;extensions&quot;]
+    resources: [&quot;deployments&quot;]
+    resourceNames: [&quot;&lt;deployment-a-reiniciar&gt;&quot;] # Podemos añadir varios deployments separando con comas
+    verbs: [&quot;get&quot;, &quot;patch&quot;]
+...
+</code></pre>
+
+<p>Aquí, el apartado <em>verbs</em> definirá las acciones que podrá realizar el <em>serviceAccount</em>. En este caso <em>get</em> y <em>patch</em> serán las acciones que nos permitirán obtener información sobre el <em>deployment</em> y modificarlo.
+Teniendo listo el fichero, crearemos el <em>role</em> con:</p>
+
+<pre><code>kubectl apply -f &lt;nombre-del-fichero&gt;
+</code></pre>
+
+<h1 id="creación-del-rolebinding">Creación del roleBinding</h1>
+
+<p>Acto seguido, tenemos que definir un recurso <em>roleBinding</em> para relacionar el <em>role</em> con el <em>serviceAccount</em> anteriormente creados.
+<strong>IMPORTANTE: Si no creamos este <em>roleBinding</em>, el <em>serviceAccount</em> no tendrá asignados los permisos necesarios para poder reiniciar el <em>deployment</em>, con lo cual el <em>cronJob</em> no funcionará.</strong></p>
+
+<p>Crearemos el <em>roleBinding</em> con el siguiente comando:</p>
+
+<pre><code>kubectl create rolebinding deployment-restart-rb --role=deployment-restart-role --serviceaccount=&lt;namespace&gt;:deployment-restart-sa
+</code></pre>
+
+<p>Aquí es importante ver que al especificar el <em>serviceAccount</em>, tenemos que especificar también el <em>namespace</em> en el que reside.</p>
+
+<h1 id="creación-del-cronjob">Creación del cronJob</h1>
+
+<p>Por último, crearemos el recurso <em>cronJob</em> que se encargará del reinicio. Para esto, crearemos otro fichero YAML con el siguiente contenido:</p>
+
+<pre><code>---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: deployment-restart
+  namespace: &lt;nombre-del-namespace&gt;
+spec:
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  schedule: '0 2 * * *' # Aquí definimos la hora a la que se ejecuta, en este caso a la 2:00 AM
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 100
+      template:
+        spec:
+          serviceAccountName: deployment-restart-sa
+          restartPolicy: Never
+          containers:
+            - name: kubectl
+              image: bitnami/kubectl
+              command:
+                - 'kubectl'
+                - 'rollout'
+                - 'restart'
+                - 'deployment/&lt;deployment-a-reiniciar&gt;'
+...
+</code></pre>
+
+<p>En este fichero, algunas partes a destacar son:
+* Cuando establecemos la hora a la que queremos que se ejecute el <em>job</em>, tendremos que tener en cuenta la zona horaria del <em>cluster</em> AKS, que por defecto es UTC.
+* Tener  <em>currencyPolicy</em> en <em>Forbid</em> significa que no se permiten <em>jobs</em> concurrentes. Es decir, si cuando el <em>job</em> se va a ejecutar todavía hay otro ejecutándose, este <em>job</em> nuevo no se ejecuta.
+* El parámetro <em>backoffLimit</em> define el número de intentos que se llevarán a cabo antes de considerar el <em>job</em> como &ldquo;fallido&rdquo;.
+* El parámetro <em>activeDeadlineSeconds</em> es una forma de terminar el <em>job</em>, definiendo el tiempo en segundos que pasará hasta la terminación de este.
+* <em>successfulJobsHistoryLimit</em> define el número de ejecuciones exitosas que se retendrán. Estando en &ldquo;1&rdquo;, significa que persistirán los recursos creados por la última ejecución exitosa del <em>job</em>. Si queremos que se borren automáticamente los recursos correspondientes (Normalmente <em>pods</em>), simplemente tendremos que ponerlo a &ldquo;0&rdquo;.</p>
+
+<p>Teniendo ya el fichero completo, crearemos el recurso utilizando de nuevo el comando:</p>
+
+<pre><code>kubectl apply -f &lt;nombre-del-fichero&gt;
+</code></pre>
+
+<p>Finalmente, podremos utilizar el siguiente comando para verificar que nuestro <em>cronJob</em> se ha creado:</p>
+
+<pre><code>kubectl get cronjobs
+``
+* El parámetro _backoffLimit_ define el número de intentos que se llevarán a cabo antes de considerar el _job_ como &quot;fallido&quot;.
+* El parámetro _activeDeadlineSeconds_ es una forma de terminar el _job_, definiendo el tiempo en segundos que pasará hasta la terminación de este.
+* _successfulJobsHistoryLimit_ define el número de ejecuciones exitosas que se retendrán. Estando en &quot;1&quot;, significa que persistirán los recursos creados por la última ejecución exitosa del _job_. Si queremos que se borren automáticamente los recursos correspondientes (Normalmente _pods_), simplemente tendremos que ponerlo a &quot;0&quot;.
+
+Teniendo ya el fichero completo, crearemos el recurso utilizando de nuevo el comando:
+</code></pre>
+
+<p>kubectl apply -f <nombre-del-fichero></p>
+
+<pre><code>
+Finalmente, podremos utilizar el siguiente comando para verificar que nuestro _cronJob_ se ha creado:
+</code></pre>
+
+<p>kubectl get cronjobs
+````</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="tags post-meta">
+        Tagged
+        <a href="/blog/tags/aks/">aks</a>
+          <a href="/blog/tags/kubernetes/">kubernetes</a>
+          <a href="/blog/tags/k8s/">k8s</a>
+          <a href="/blog/tags/cronjob/">cronjob</a>
+          
+      </section>
+    </footer>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  <section class="twitter"><a class="icon-twitter" href="https://twitter.com/alvarobrod"> alvarobrod</a></section>
+  
+  <section class="copyright">&copy; 2021 Álvaro Beleño</section>
+  <section class="poweredby"><a href="https://github.com/nirocfz/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

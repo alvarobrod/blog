@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes on Álvaro Beleño</title>
+    <link>/blog/tags/kubernetes/</link>
+    <description>Recent content in Kubernetes on Álvaro Beleño</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 22 Jan 2021 15:28:00 +0000</lastBuildDate>
+    
+	<atom:link href="/blog/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Crear un CronJob para reiniciar deployment en AKS</title>
+      <link>/blog/post/cronjobaks/</link>
+      <pubDate>Fri, 22 Jan 2021 15:28:00 +0000</pubDate>
+      
+      <guid>/blog/post/cronjobaks/</guid>
+      <description>Tras estar bastante tiempo sin subir un post, he decidido subir cosas interesantes que haga en mi trabajo que considere que pueden ser útiles o que, simplemente, quiera tener en algún sitio y así no perderlo de vista :)
+Hoy os hablaré de cómo crear un recurso cronJob en AKS para manejar el reinicio de uno (O varios) deployments. Realmente esto se podría hacer en cualquier instancia de Kubernetes, con lo cual no aplica sólo a la plataforma de Azure.</description>
+    </item>
+    
+  </channel>
+</rss>
