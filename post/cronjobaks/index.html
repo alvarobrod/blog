@@ -104,8 +104,9 @@ Teniendo listo el fichero, crearemos el <em>role</em> con:</p>
 
 <h1 id="creación-del-rolebinding">Creación del roleBinding</h1>
 
-<p>Acto seguido, tenemos que definir un recurso <em>roleBinding</em> para relacionar el <em>role</em> con el <em>serviceAccount</em> anteriormente creados.
-<strong>IMPORTANTE: Si no creamos este <em>roleBinding</em>, el <em>serviceAccount</em> no tendrá asignados los permisos necesarios para poder reiniciar el <em>deployment</em>, con lo cual el <em>cronJob</em> no funcionará.</strong></p>
+<p>Acto seguido, tenemos que definir un recurso <em>roleBinding</em> para relacionar el <em>role</em> con el <em>serviceAccount</em> anteriormente creados.</p>
+
+<p><strong>IMPORTANTE: Si no creamos este <em>roleBinding</em>, el <em>serviceAccount</em> no tendrá asignados los permisos necesarios para poder reiniciar el <em>deployment</em>, con lo cual el <em>cronJob</em> no funcionará.</strong></p>
 
 <p>Crearemos el <em>roleBinding</em> con el siguiente comando:</p>
 
@@ -162,22 +163,9 @@ spec:
 <p>Finalmente, podremos utilizar el siguiente comando para verificar que nuestro <em>cronJob</em> se ha creado:</p>
 
 <pre><code>kubectl get cronjobs
-``
-* El parámetro _backoffLimit_ define el número de intentos que se llevarán a cabo antes de considerar el _job_ como &quot;fallido&quot;.
-* El parámetro _activeDeadlineSeconds_ es una forma de terminar el _job_, definiendo el tiempo en segundos que pasará hasta la terminación de este.
-* _successfulJobsHistoryLimit_ define el número de ejecuciones exitosas que se retendrán. Estando en &quot;1&quot;, significa que persistirán los recursos creados por la última ejecución exitosa del _job_. Si queremos que se borren automáticamente los recursos correspondientes (Normalmente _pods_), simplemente tendremos que ponerlo a &quot;0&quot;.
-
-Teniendo ya el fichero completo, crearemos el recurso utilizando de nuevo el comando:
 </code></pre>
 
-<p>kubectl apply -f <nombre-del-fichero></p>
-
-<pre><code>
-Finalmente, podremos utilizar el siguiente comando para verificar que nuestro _cronJob_ se ha creado:
-</code></pre>
-
-<p>kubectl get cronjobs
-````</p>
+<p>Fuente: <a href="https://stackoverflow.com/questions/52422300/how-to-schedule-pods-restart">https://stackoverflow.com/questions/52422300/how-to-schedule-pods-restart</a></p>
 
     </section>
     <footer class="post-footer">
