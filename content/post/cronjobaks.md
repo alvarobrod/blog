@@ -42,6 +42,7 @@ kubectl apply -f <nombre-del-fichero>
 
 # Creación del roleBinding
 Acto seguido, tenemos que definir un recurso _roleBinding_ para relacionar el _role_ con el _serviceAccount_ anteriormente creados.
+
 **IMPORTANTE: Si no creamos este _roleBinding_, el _serviceAccount_ no tendrá asignados los permisos necesarios para poder reiniciar el _deployment_, con lo cual el _cronJob_ no funcionará.**
 
 Crearemos el _roleBinding_ con el siguiente comando:
@@ -84,11 +85,17 @@ spec:
 ```
 
 En este fichero, algunas partes a destacar son:
+
 * Cuando establecemos la hora a la que queremos que se ejecute el _job_, tendremos que tener en cuenta la zona horaria del _cluster_ AKS, que por defecto es UTC.
+
 * Tener  _currencyPolicy_ en _Forbid_ significa que no se permiten _jobs_ concurrentes. Es decir, si cuando el _job_ se va a ejecutar todavía hay otro ejecutándose, este _job_ nuevo no se ejecuta.
+
 * El parámetro _backoffLimit_ define el número de intentos que se llevarán a cabo antes de considerar el _job_ como "fallido".
+
 * El parámetro _activeDeadlineSeconds_ es una forma de terminar el _job_, definiendo el tiempo en segundos que pasará hasta la terminación de este.
+
 * _successfulJobsHistoryLimit_ define el número de ejecuciones exitosas que se retendrán. Estando en "1", significa que persistirán los recursos creados por la última ejecución exitosa del _job_. Si queremos que se borren automáticamente los recursos correspondientes (Normalmente _pods_), simplemente tendremos que ponerlo a "0".
+
 
 Teniendo ya el fichero completo, crearemos el recurso utilizando de nuevo el comando:
 ```
@@ -98,17 +105,6 @@ kubectl apply -f <nombre-del-fichero>
 Finalmente, podremos utilizar el siguiente comando para verificar que nuestro _cronJob_ se ha creado:
 ```
 kubectl get cronjobs
-``
-* El parámetro _backoffLimit_ define el número de intentos que se llevarán a cabo antes de considerar el _job_ como "fallido".
-* El parámetro _activeDeadlineSeconds_ es una forma de terminar el _job_, definiendo el tiempo en segundos que pasará hasta la terminación de este.
-* _successfulJobsHistoryLimit_ define el número de ejecuciones exitosas que se retendrán. Estando en "1", significa que persistirán los recursos creados por la última ejecución exitosa del _job_. Si queremos que se borren automáticamente los recursos correspondientes (Normalmente _pods_), simplemente tendremos que ponerlo a "0".
-
-Teniendo ya el fichero completo, crearemos el recurso utilizando de nuevo el comando:
-```
-kubectl apply -f <nombre-del-fichero>
 ```
 
-Finalmente, podremos utilizar el siguiente comando para verificar que nuestro _cronJob_ se ha creado:
-```
-kubectl get cronjobs
-````
+Fuente: https://stackoverflow.com/questions/52422300/how-to-schedule-pods-restart
