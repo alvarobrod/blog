@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>/blog/post/demo/</loc>
+    <lastmod>2021-01-22T15:28:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/post/btrfs2/</loc>
     <lastmod>2019-03-19T08:00:00+00:00</lastmod>
   </url>
@@ -78,6 +83,12 @@
   <url>
     <loc>/blog/tags/mdadm/</loc>
     <lastmod>2019-03-19T08:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/blog/tags/ob/</loc>
+    <lastmod>2021-01-22T15:28:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

@@ -21,6 +21,19 @@ Hoy os hablaré de cómo crear un recurso cronJob en AKS para manejar el reinici
     </item>
     
     <item>
+      <title>Demo AM OB</title>
+      <link>/blog/post/demo/</link>
+      <pubDate>Fri, 22 Jan 2021 15:28:00 +0000</pubDate>
+      
+      <guid>/blog/post/demo/</guid>
+      <description> Esto es un subtítulo Hola qué tal, esto es una prueba esto está en negrita esto está en cursiva
+ primera lista
+ segunda lista
+ tercera lista
+  Sub subtítulo amo a probarlo </description>
+    </item>
+    
+    <item>
       <title>Btrfs, parte 2</title>
       <link>/blog/post/btrfs2/</link>
       <pubDate>Tue, 19 Mar 2019 08:00:00 +0000</pubDate>
